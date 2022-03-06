@@ -19,7 +19,7 @@ void OnDestroy() {
 ScreenWrapper.OnTeleport -= DoSomething;
 }
 void DoSomething(GameObject gO) {
-	if(gO = this.gameObject) {
+	if(gO == this.gameObject) {
 	print("My Last Position before teleporting:" + gO.transform.position);
 	}
 }
