@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ScreenWrapper : MonoBehaviour
 {
+    public delegate void Teleporting(GameObject gO);
+    /// <summary>
+    /// Executes before the game object is teleported (wrapped)
+    /// </summary>
+    public static event Teleporting OnTeleport;
 
     public LayerMask cullingMask;
     public static LayerMask _cullingMask { get; private set; } = 0;
@@ -72,18 +77,22 @@ public class ScreenWrapper : MonoBehaviour
         {
             if (gObject.position.x >= cameraWorldBounds.x)
             {
+                if (OnTeleport != null) OnTeleport(gObject.gameObject);
                 gObject.position -= 2 * new Vector3(cameraLocalBounds.x, 0);
             }
             if (gObject.position.y >= cameraWorldBounds.y)
             {
+                if (OnTeleport != null) OnTeleport(gObject.gameObject);
                 gObject.position -= 2 * new Vector3(0, cameraLocalBounds.y);
             }
             if (gObject.position.x <= (cameraWorldBounds - 2 * cameraLocalBounds).x)
             {
+                if (OnTeleport != null) OnTeleport(gObject.gameObject);
                 gObject.position += 2 * new Vector3(cameraLocalBounds.x, 0);
             }
             if (gObject.position.y <= (cameraWorldBounds - 2 * cameraLocalBounds).y)
             {
+                if (OnTeleport != null) OnTeleport(gObject.gameObject);
                 gObject.position += 2 * new Vector3(0, cameraLocalBounds.y);
             }
         }
