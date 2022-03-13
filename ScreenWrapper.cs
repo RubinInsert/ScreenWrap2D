@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class ScreenWrapper : MonoBehaviour
 {
     public delegate void Teleporting(GameObject gO);
@@ -47,6 +48,7 @@ public class ScreenWrapper : MonoBehaviour
         for(int i = 0; i < activeCameras.Count; i ++)
         {
             activeCameras[i].transform.position = cameraOffsets[i];
+            activeCameras[i].GetComponent<Camera>().depth = Camera.main.depth;
         }
     }
     void UpdateCameraBounds()
